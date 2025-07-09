@@ -32,7 +32,7 @@ Untuk mencapai tujuan di atas, pendekatan berikut akan digunakan dalam analisis 
 
 ## Data Understanding
 
-Dataset yang digunakan untuk membuat sistem rekomendasi smartphone pada responden diambil dari platform kaggle. Dataset dapat diakses pada link [berikut](https://www.kaggle.com/datasets/gyanprakashkushwaha/mobile-recommendation-system-dataset).
+Dataset yang digunakan berasal dari Kaggle dan berjudul [Mobile Recommendation System Dataset](https://www.kaggle.com/datasets/gyanprakashkushwaha/mobile-recommendation-system-dataset). Dataset ini berisi informasi mengenai berbagai produk smartphone, termasuk nama produk, rating pengguna, harga, link gambar, serta deskripsi teknis (corpus) yang mencakup RAM, penyimpanan internal, prosesor, kamera, jaringan, dan baterai.
 
 ### Keterangan Variabel
 
@@ -65,8 +65,6 @@ Selanjutnya akan ditampilkan statistik data numerikal secara umum:
 | Kuartil 3 (75%)          | 4.40  |
 | Nilai maksimum (max)     | 5.00  |
 
-... (lanjutan konten tidak berubah) ...
-
 
 Tabel di atas memberikan informasi statistik pada masing-masing kolom, antara lain:
 - Count adalah jumlah sampel pada data.
@@ -84,7 +82,7 @@ Dari tabel Data ratings menunjukkan distribusi yang cukup sempit dan condong ke 
 #### memeriksa data duplikasi
 ![data duplikasi](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/d1302a318fc64e0db882ef9ceafd22b95186e20d/Gambar/checkdata2.png)
 
-Dari hasil diatas terlihat bahwa ada satu data yang terduplikasi tapi sudah diatasi.
+
 
 #### memeriksa missing value
 ![mengecek missing value](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/d1302a318fc64e0db882ef9ceafd22b95186e20d/Gambar/checkdata3.png)
@@ -306,6 +304,8 @@ Sistem yang dibangun dapat ditingkatkan lagi dengan:
 7. Modelling
 8. Evaluation
 9. Kesimpulan
+
+
 ## Referensi
 
 1. Gyan Prakash Kushwaha (2022). *Mobile Recommendation System Dataset*. Kaggle.
@@ -321,4 +321,135 @@ Sistem yang dibangun dapat ditingkatkan lagi dengan:
 6. Géron, A. (2019). Hands-On Machine Learning. O'Reilly Media.
 7. scikit-learn: [https://scikit-learn.org](https://scikit-learn.org)
 8. Wikipedia: TF-IDF dan Cosine Similarity
+
+
+
+
+## 📊 Data Understanding
+
+### Struktur Dataset
+
+* **Jumlah baris (records)**: 2.546
+* **Jumlah kolom (fitur)**: 5 kolom utama (`name`, `ratings`, `price`, `imgURL`, `corpus`)
+* **Tipe fitur**:
+
+  * `name`: kategorikal (string)
+  * `ratings`: numerikal (float)
+  * `price`: numerikal (float, awalnya bertipe string)
+  * `imgURL`: kategorikal (string / URL)
+  * `corpus`: kategorikal (string / teks deskriptif)
+
+### Distribusi Rating
+
+| Statistik   | Nilai |
+| ----------- | ----- |
+| Mean        | 4.27  |
+| Std Dev (σ) | 0.21  |
+| Min         | 2.90  |
+| Q1 (25%)    | 4.10  |
+| Median (Q2) | 4.30  |
+| Q3 (75%)    | 4.40  |
+| Max         | 5.00  |
+
+Distribusi rating cenderung tinggi, mayoritas produk mendapatkan rating ≥ 4.0, yang menunjukkan dominasi review positif.
+
+### Identifikasi Anomali
+
+* **Data duplikat**: Ditemukan indikasi adanya data terduplikasi (misalnya berdasarkan `name`).
+* **Missing values**: Kolom `corpus` menjadi perhatian utama karena berisi gabungan fitur teknis yang kompleks. Pemeriksaan lanjutan menunjukkan adanya missing value pada atribut-atribut turunan dari corpus.
+
+> Pada tahap ini, belum dilakukan modifikasi atau pembersihan data. Seluruh penanganan dilakukan pada tahap Data Preparation.
+
+---
+
+## 🧹 Data Preparation
+
+Tahapan ini mencakup pembersihan data dan transformasi yang diperlukan untuk pemodelan sistem rekomendasi:
+
+### 1. Menghapus Duplikasi
+
+* Duplikasi pada kolom `name` dihapus untuk mencegah bias pada hasil rekomendasi.
+
+### 2. Penanganan Missing Values
+
+* Dilakukan eksplorasi dan penguraian `corpus` menjadi enam kolom baru:
+
+  * `storage_ram`, `os_processor`, `camera`, `display`, `network`, `battery`
+* Missing value di kolom hasil ekstraksi ditangani dengan strategi:
+
+  * Pengisian default (`unknown`) jika informasi tidak tersedia
+  * Baris dengan `corpus` kosong di-drop karena tidak bisa digunakan dalam rekomendasi
+
+### 3. Pembersihan Kolom Harga
+
+* Kolom `price` yang semula bertipe string dengan simbol mata uang (misal "₹23,999") dibersihkan:
+
+  * Menghapus simbol `₹` dan tanda koma
+  * Dikonversi ke float (`23999.0`)
+
+### 4. Vektorisasi Teks (TF-IDF)
+
+* Kolom gabungan `name + price + rating + corpus` diubah menjadi representasi vektor numerik menggunakan `TfidfVectorizer`.
+* Vektor ini digunakan sebagai dasar untuk menghitung **cosine similarity** pada tahap modeling.
+
+> Penjelasan terkait cosine similarity tidak dimasukkan di sini, karena merupakan bagian dari tahapan modeling.
+
+---
+
+## 🤖 Modeling & Results
+
+### Metode: Content-Based Filtering
+
+Pendekatan yang digunakan adalah **content-based filtering**, dengan penghitungan kemiripan antar produk menggunakan **cosine similarity** berdasarkan hasil transformasi TF-IDF dari gabungan fitur produk.
+
+#### Rumus Cosine Similarity:
+
+$$
+Cos(\theta) = \frac{\sum a_i b_i}{\sqrt{\sum a_i^2} \cdot \sqrt{\sum b_i^2}}
+$$
+
+#### Fungsi Rekomendasi:
+
+Fungsi `content_based_phone_recommendations(keyword)` mengembalikan 10 produk paling mirip berdasarkan keyword (misalnya “SAMSUNG Galaxy”).
+
+#### Top-10 Hasil Rekomendasi
+
+| Index | Name                                            | Price   | Ratings |
+| ----- | ----------------------------------------------- | ------- | ------- |
+| 9     | SAMSUNG Galaxy A04 (Green, 128 GB)              | 12999.0 | 4.0     |
+| 13    | SAMSUNG Galaxy Z Flip4 5G (Bora Purple, 128 GB) | 24463.0 | 3.7     |
+| 55    | SAMSUNG M32 5G (Sky blue, 128 GB)               | 16200.0 | 4.2     |
+| 70    | SAMSUNG Galaxy A13 (Black, 64 GB)               | 18490.0 | 4.1     |
+| 96    | SAMSUNG Galaxy A72 (Awesome Black, 128 GB)      | 23537.0 | 4.3     |
+| 99    | SAMSUNG Galaxy S21 FE 5G (Graphite, 128 GB)     | 31999.0 | 4.3     |
+| 128   | SAMSUNG Galaxy M12 (Blue, 128 GB)               | 15499.0 | 4.3     |
+| 133   | SAMSUNG Galaxy On7 (Gold, 8 GB)                 | 5999.0  | 4.2     |
+| 138   | SAMSUNG Galaxy F42 5G (Matte Black, 128 GB)     | 20999.0 | 4.3     |
+| 145   | SAMSUNG Galaxy A73 5G (Awesome Mint, 256 GB)    | 20537.0 | 4.2     |
+
+---
+
+## ✅ Evaluation
+
+### Metodologi Evaluasi:
+
+* Evaluasi dilakukan dengan menghitung **precision** terhadap hasil Top-10 rekomendasi.
+* Precision = jumlah rekomendasi relevan / total rekomendasi.
+* Didefinisikan "relevan" jika produk hasil rekomendasi mengandung kata "SAMSUNG" (sesuai input pengguna: “SAMSUNG Galaxy”).
+
+### Hasil Evaluasi:
+
+| Total Rekomendasi | True Positive | Precision |
+| ----------------- | ------------- | --------- |
+| 10                | 9             | 0.90      |
+
+### Interpretasi:
+
+* **Precision 90%** menunjukkan bahwa sistem mampu mengembalikan hasil yang relevan secara tinggi untuk input spesifik.
+* Cocok untuk sistem yang ingin memprioritaskan akurasi konten serupa.
+
+### Keterbatasan:
+
+* Evaluasi belum mencakup metrik **recall**, **F1-score**, atau **MAP** karena keterbatasan data ground truth eksplisit dari pengguna.
+* Validasi baru dilakukan terhadap satu query sebagai sampel.
 
