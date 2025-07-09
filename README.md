@@ -46,9 +46,9 @@ Dataset ini memiliki 6 variabel dengan keterangan sebagai berikut.
 | `imgURL`          | String (URL)   | Tautan gambar produk dari situs e-commerce.                                               |
 | `corpus`          | String         | Deskripsi spesifikasi teknis (storage, RAM, OS, prosesor, kamera, dll) dalam bentuk teks. |
 
-![menampilkan jumlah dataset]()
+![menampilkan jumlah dataset](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/d1302a318fc64e0db882ef9ceafd22b95186e20d/Gambar/checkdata1.png)
 
-Dapat dilihat bahwa data yang digunakan adalah sebanyak 2546 data dengan 6 fitur.
+Dapat dilihat bahwa data yang digunakan adalah sebanyak 2546 data dengan 5 fitur.
 
 ### Statistik Data
 
@@ -82,12 +82,12 @@ Penjelasan:
 Dari tabel Data ratings menunjukkan distribusi yang cukup sempit dan condong ke arah nilai tinggi, yang mengindikasikan bahwa mayoritas pengguna memberikan penilaian positif terhadap item yang ada. Hal ini bisa menunjukkan kualitas produk/jasa yang baik atau bisa juga bias penilaian (rating bias).
 
 #### memeriksa data duplikasi
-![data duplikasi](https://github.com/user-attachments/assets/fec138a2-4e38-4c9e-9809-e57f7739e403)
+![data duplikasi](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/d1302a318fc64e0db882ef9ceafd22b95186e20d/Gambar/checkdata2.png)
 
-Dari Hasil diatas terlihat bahwa tidak ada data yang terduplikasi.
+Dari hasil diatas terlihat bahwa ada satu data yang terduplikasi tapi sudah diatasi.
 
 #### memeriksa missing value
-![mengecek missing value](https://github.com/user-attachments/assets/3ad1e5fd-7cde-4160-8249-d28e6944e45b)
+![mengecek missing value](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/d1302a318fc64e0db882ef9ceafd22b95186e20d/Gambar/checkdata3.png)
 
 Dari hasil diatas diketahui bahwa terdapat missing velue di 7 kolom yaitu corpus, storage_ram, os_processor, camera, display, network, dan battery.saya uraikan corpus untuk menangani jika terjadi data missing value dri tiap kriteria yang ada di corpus.
 
@@ -164,17 +164,17 @@ Fitur-fitur teknis secara umum memiliki korelasi yang lebih jelas terhadap ratin
 
 ## Data Preparation
 #### Menangani missing velue
-![menangani missing velue](https://github.com/user-attachments/assets/b6c942ad-fa58-4288-9d91-90217a441ad2)
+![menangani missing value](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/d1302a318fc64e0db882ef9ceafd22b95186e20d/Gambar/checkdata4.png)
 
 Dari Hasil diatas terlihat bahwa sudah tidak ada missing velue karena sudah ditangani.
 
 #### Pembersihan Kolom Price
-![menghapus price](https://github.com/user-attachments/assets/136362e5-aa23-40f4-adbe-06a665c41f8b)
+![menghapus price](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/c18d10023ee2516aa944a9e8ab76eb3b6d2d2539/Gambar/checkdata7.png)
 
 Dari hasil diatas menunjukan bahwa kolom price dengan simbol rupe dan koma dihapus dan mengonversi menjadi float.
 
 #### Extract Kolom Corpus
-![Ekstract kolom corpus](https://github.com/user-attachments/assets/f074c2d9-24dd-4c97-bf3d-82659de67f3b)
+![Ekstract kolom corpus](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/81eb019617dafda92d3e90208ada653e112ff973/Gambar/checkdata8.png)
 
 agar lebih mudah mengerti dataset maka kolom corpus dipisah menjadi 6 kolom yang terdiri dari storage_ram, os_processor, camera, display, network, dan battery tujuannya agar mudah mengecek apakah terjadi missing value, duplikasi, dan memudahkan visualisasi.
 
