@@ -46,7 +46,7 @@ Dataset ini memiliki 6 variabel dengan keterangan sebagai berikut.
 | `imgURL`          | String (URL)   | Tautan gambar produk dari situs e-commerce.                                               |
 | `corpus`          | String         | Deskripsi spesifikasi teknis (storage, RAM, OS, prosesor, kamera, dll) dalam bentuk teks. |
 
-![menampilkan jumlah dataset](https://github.com/ginganomercy/Sentimen_Analytic/main/66e6eedf7691f9abc1294fcdea4d7bd731a28471/Gambar/top10kombinasibrand.png)
+![menampilkan jumlah dataset]()
 
 Dapat dilihat bahwa data yang digunakan adalah sebanyak 2546 data dengan 6 fitur.
 
@@ -94,7 +94,7 @@ Dari hasil diatas diketahui bahwa terdapat missing velue di 7 kolom yaitu corpus
 
 ## Exploratory Data Analysis (EDA)
 ### Persebaran penggunaan smartphone berdasarkan nama smarphone dan rentang harga
-![EDA](https://github.com/user-attachments/assets/b42251ad-a398-4be6-9cf1-1b9a81fea38e)
+![EDA](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/66e6eedf7691f9abc1294fcdea4d7bd731a28471/Gambar/top10kombinasibrand.png)
 
 Kesimpulan:
 - Brand dan harga adalah dua faktor utama dalam keputusan pembelian smartphone.
@@ -103,7 +103,7 @@ Kesimpulan:
 - Untuk sistem rekomendasi atau strategi pemasaran, fokuskan pada model populer di rentang harga tersebut, dengan storage 64–128 GB, dari brand-brand teratas seperti Samsung, OPPO, dan OnePlus.
 - 
 ### Hubungan antara Rating vs RAM dan Storage
-![EDA2](https://github.com/user-attachments/assets/f7390cfa-6ada-4ce5-aa10-caf0c39b935f)
+![EDA2](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/f37dae5717c6007611cf4ac27ebfa1394c3de491/Gambar/ratingvsram.png)
 
 Penjelasan:
 1. RAM 4–8 GB paling umum dan cenderung mendapat rating ≥ 4.0, mencerminkan performa ideal.
@@ -112,7 +112,7 @@ Penjelasan:
 4. RAM sangat besar (≥ 12 GB) tidak selalu berarti rating tinggi, kemungkinan karena faktor lain seperti software atau harga.
 
 ### Scatterplot Kamera VS Rating
-![EDA3](https://github.com/user-attachments/assets/f902c800-d8cf-4e17-9980-3ea8756f686c)
+![EDA3](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/f37dae5717c6007611cf4ac27ebfa1394c3de491/Gambar/kameravsrating.png)
 
 Penjelasan:
 1. Mayoritas kamera utama berada di kisaran 12–64 MP, sesuai tren pasar menengah ke atas.
@@ -122,7 +122,7 @@ Penjelasan:
 Hal ini menunjukkan bahwa megapiksel bukan satu-satunya faktor, kualitas software kamera dan fitur lain seperti OIS, AI, atau mode malam juga berperan penting dalam pengalaman pengguna.
 
 ### Boxplot Rating Berdasarkan Generasi Jaringan
-![EDA4](https://github.com/user-attachments/assets/3692b779-3322-4974-bc58-9b4d1cbcd0cb)
+![EDA4](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/f37dae5717c6007611cf4ac27ebfa1394c3de491/Gambar/distribusirating.png)
 
 Penjelasan:
 1. Smartphone 5G cenderung memiliki rating lebih tinggi secara konsisten dibanding 3G dan 4G.
@@ -132,7 +132,7 @@ Penjelasan:
 Hal ini menunjukkan bahwa dukungan jaringan terbaru (5G) menjadi nilai tambah dalam penilaian pengguna — meskipun bisa jadi karena ponsel 5G juga dibekali spesifikasi lebih tinggi.
 
 ### Kolerasi Fitur Teknis dengan Rating Pengguna
-![EDA5](https://github.com/user-attachments/assets/8bc40904-5633-4b8d-b014-ce889418b47e)
+![EDA5](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/f37dae5717c6007611cf4ac27ebfa1394c3de491/Gambar/korelasifiturteknis.png)
 
 Penjelasan:
 1. Rating pengguna memiliki korelasi lemah dengan hampir semua fitur teknis (nilai korelasi mendekati 0).
@@ -143,7 +143,7 @@ Korelasi paling tinggi pun tetap berada dalam kategori lemah, sehingga faktor la
 
 ### Heatmap Korelasi Fitur Teknis vs Rating per Segmen Harga
 
-![EDA6](https://github.com/user-attachments/assets/331021bd-c706-4989-8d26-f545734c5b04)
+![EDA6](https://raw.githubusercontent.com/ginganomercy/Sentimen_Analytic/f37dae5717c6007611cf4ac27ebfa1394c3de491/Gambar/korelasiratingpersegmen.png)
 
 Kesimpulan:
 1. Segmen Harga Low
