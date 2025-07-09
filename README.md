@@ -277,7 +277,7 @@ $$
 * Evaluasi ini belum mencakup metrik seperti **recall**, **F1-score**, atau **Mean Average Precision (MAP)** karena tidak ada ground truth preferensi pengguna yang lengkap.
 * Validasi hanya dilakukan secara manual pada satu input sebagai sampel.
 
-## Conclusion
+## Kesimpulan
 
 Content-Based Filtering terbukti mampu menghasilkan rekomendasi smartphone yang relevan berdasarkan kombinasi `name`, `price`, `ratings`, dan `corpus`.
 
@@ -305,9 +305,7 @@ Sistem yang dibangun dapat ditingkatkan lagi dengan:
 6. Exploratory Data Analysis (EDA)
 7. Modelling
 8. Evaluation
-9. Conclusion
-10. Referensi
-
+9. Kesimpulan
 ## Referensi
 
 1. Gyan Prakash Kushwaha (2022). *Mobile Recommendation System Dataset*. Kaggle.
