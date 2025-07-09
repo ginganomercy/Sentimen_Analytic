@@ -253,6 +253,20 @@ $$
 
 Sistem rekomendasi memberikan hasil yang sangat relevan dengan **precision sebesar 1.00** pada kasus "SAMSUNG Galaxy A04 (Green, 128 GB)", menunjukkan akurasi tinggi dalam pencarian berbasis konten.
 
+
+---
+## Struktur Laporan
+
+1. Judul & Identitas
+2. Proyek Overview
+3. Business Understanding
+4. Data Understanding
+5. Exploratory Data Analysis (EDA)
+6. Data Preparation 
+7. Modelling & Result
+8. Evaluation
+9. Kesimpulan
+
 ---
 
 ## 📂 Referensi
