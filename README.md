@@ -46,7 +46,7 @@ Dataset ini memiliki 6 variabel dengan keterangan sebagai berikut.
 | `imgURL`          | String (URL)   | Tautan gambar produk dari situs e-commerce.                                               |
 | `corpus`          | String         | Deskripsi spesifikasi teknis (storage, RAM, OS, prosesor, kamera, dll) dalam bentuk teks. |
 
-![menampilkan jumlah dataset](https://github.com/user-attachments/assets/69cb56a4-585e-4ebb-9a51-42b15e4325d9)
+![menampilkan jumlah dataset](https://github.com/ginganomercy/Sentimen_Analytic/main/66e6eedf7691f9abc1294fcdea4d7bd731a28471/Gambar/top10kombinasibrand.png)
 
 Dapat dilihat bahwa data yang digunakan adalah sebanyak 2546 data dengan 6 fitur.
 
