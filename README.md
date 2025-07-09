@@ -252,6 +252,23 @@ $$
 ### Kesimpulan
 
 Sistem rekomendasi memberikan hasil yang sangat relevan dengan **precision sebesar 1.00** pada kasus "SAMSUNG Galaxy A04 (Green, 128 GB)", menunjukkan akurasi tinggi dalam pencarian berbasis konten.
+## Kesimpulan
+
+Content-Based Filtering terbukti mampu menghasilkan rekomendasi smartphone yang relevan berdasarkan kombinasi `name`, `price`, `ratings`, dan `corpus`.
+
+Hasil rekomendasi memperlihatkan **precision sebesar 90%**, yang mengindikasikan bahwa sistem mampu memahami pola kesamaan konten dengan baik.
+
+Faktor-faktor seperti **RAM, storage, kamera, dan jaringan** tidak memiliki korelasi kuat terhadap rating pengguna, menandakan bahwa **brand, UX, dan faktor eksternal lain** lebih berpengaruh dalam penilaian pengguna.
+
+Sistem yang dibangun dapat ditingkatkan lagi dengan:
+
+* Menambahkan **feedback pengguna (user-based)**,
+* Menyediakan **filter harga atau brand** untuk memperkaya interaktivitas,
+* Menerapkan **hybrid recommendation system** di masa depan untuk menggabungkan keunggulan dari berbagai pendekatan rekomendasi.
+
+
+1. Spesifikasi teknis tidak terlalu berkorelasi kuat terhadap rating, mengindikasikan pentingnya faktor eksternal seperti brand dan UX.
+2. Proyek ini dapat diperluas menjadi hybrid recommender system untuk peningkatan akurasi.
 
 
 ---
