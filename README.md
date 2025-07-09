@@ -212,44 +212,6 @@ Selanjutnya, digunakan TfidfVectorizer() pada kolom kombinasi name, price, dan r
 
 Kode ini membentuk DataFrame cosine_sim_df dari matriks cosine similarity, dengan baris dan kolom diberi label brand_product (gabungan nama, harga, dan rating produk). Struktur ini memudahkan analisis kemiripan antar produk secara langsung berdasarkan representasi teks. Hasil sampling dari matriks menunjukkan beberapa nilai kemiripan antar produk, yang bisa digunakan untuk menampilkan rekomendasi produk serupa dalam sistem content-based filtering.
 
-### 2. Collaborative Filtering
-Untuk collaborative filtering, kita juga akan fokus pada user_id, rating beserta corpus dari data tersebut. Berbeda dengan content-based, kita hanya akan mengambil 3 kolom dari data yang dimiliki, yaitu
-* `user_id`
-* `track_name`
-* `Rating`
-
-Karena `user_id` dan `track_name` memiliki tipe data string dan unik, maka dilakukan encoding terhadap kedua kolom tersebut, kemudian dibentuk dataframe yang berisi kolom `user_id` yang sudah diencoding, kolom `track_name` yang sudah diencoding, dan `Ratings`. Contoh dari dataframe dapat dilihat pada tabel berikut.
-
-| **track** | **name** | **ratings** |
-| --------- | -------- | ----------- |
-| 982       | 752      | 4.2         |
-| 1003      | 765      | 4.2         |
-| 2144      | 1655     | 4.5         |
-| 1620      | 1252     | 4.2         |
-| 1425      | 1102     | 4.3         |
-| ...       | ...      | ...         |
-| 1459      | 1130     | 4.2         |
-| 1676      | 1294     | 4.1         |
-| 1122      | 860      | 4.2         |
-| 1889      | 1459     | 4.1         |
-| 1455      | 1126     | 4.3         |
-
-Penjelasan:
-
-1. Data telah diacak secara menyeluruh (100%) menggunakan fungsi .sample(frac=1).
-2. Hal ini bertujuan untuk menghilangkan bias urutan data, yang penting sebelum digunakan dalam model collaborative filtering.
-3. Parameter random_state=42 memastikan bahwa proses pengacakan dapat direproduksi, penting untuk debugging dan eksperimen ilmiah.
-
-**Mengapa diperlukan melakukan Encoding data?**
-- Encoding data perlu dilakukan karena pada Collaborative Filtering, model harus belajar dari pola interaksi pengguna terhadap item. Data perlu diubah ke dalam bentuk numerik agar model neural network dapat memprosesnya.
-
-
-Setelah data yang diperlukan telah diencoding, selanjutnya data dibagi menjadi dua, yaitu data training dan data testing untuk pembuatan dan pelatihan model. Data training digunakan untuk melatih model dengan data yang ada, sedangkan data testing digunakan untuk menguji model yang dibuat menggunakan data yang belum dilatih. Pembagian data ini dilakukan dengan perbandingan 80% : 20% untuk data training dan data testing.
-
-**Mengapa diperlukan melakukan Train-test-split data?**
-
-- Memisahkan data menjadi set pelatihan dan pengujian memungkinkan kita untuk mengevaluasi kinerja model pada data yang tidak pernah dilihat sebelumnya. Ini memberikan gambaran yang lebih akurat tentang seberapa baik model yg kita buat.
-
 ## Modelling and Result
 
 ### 1. Content-Based Filtering
@@ -278,3 +240,87 @@ Pada python, kita akan menggunakan  `cosine_similarity` untuk mendapatkan nilai 
 penjelasan:
 
 Hasil dari code diatas menunjukan bahwa true positive: 9 dan precision = 0.90 yang artinya dari hasil rekomendasi berdasarkan name, price, ratings, dan corpus berhasil memberikan rekomendasi sesuai sebanyak 9 rekomendasi dan tidak sesuai 1 rekomendasi.
+
+## Evaluation
+
+### Evaluasi Akurasi Rekomendasi
+
+Dalam sistem rekomendasi berbasis content-based filtering ini, dilakukan evaluasi sederhana dengan cara:
+
+* Menggunakan fungsi rekomendasi `smart_content_based_recommendation()` untuk menampilkan 10 produk teratas berdasarkan input kata kunci (contohnya "SAMSUNG Galaxy").
+* Memeriksa **True Positive** dari hasil rekomendasi, yaitu produk-produk yang memang berasal dari brand **SAMSUNG**.
+
+Precision dihitung sebagai:
+
+$$
+\text{Precision} = \frac{\text{True Positive}}{\text{Total Rekomendasi}}
+$$
+
+### 📌 Hasil Evaluasi
+
+| Total Rekomendasi | True Positive | Precision |
+| ----------------- | ------------- | --------- |
+| 10                | 9             | 0.90      |
+
+### Interpretasi
+
+* Dari 10 rekomendasi yang diberikan, 9 di antaranya memang berasal dari brand **SAMSUNG**, yang sesuai dengan maksud pencarian pengguna.
+* **Precision 0.90 (90%)** menandakan bahwa sistem ini cukup akurat dalam menampilkan rekomendasi yang relevan berdasarkan input pengguna.
+
+### 🔍 Kelebihan Evaluasi Ini
+
+* Mudah dipahami dan cukup representatif untuk sistem content-based yang belum memiliki data rating eksplisit dari user.
+* Fokus pada **kualitas kemiripan konten**.
+
+### ⚠️ Keterbatasan
+
+* Evaluasi ini belum mencakup metrik seperti **recall**, **F1-score**, atau **Mean Average Precision (MAP)** karena tidak ada ground truth preferensi pengguna yang lengkap.
+* Validasi hanya dilakukan secara manual pada satu input sebagai sampel.
+
+## Conclusion
+
+Content-Based Filtering terbukti mampu menghasilkan rekomendasi smartphone yang relevan berdasarkan kombinasi `name`, `price`, `ratings`, dan `corpus`.
+
+Hasil rekomendasi memperlihatkan **precision sebesar 90%**, yang mengindikasikan bahwa sistem mampu memahami pola kesamaan konten dengan baik.
+
+Faktor-faktor seperti **RAM, storage, kamera, dan jaringan** tidak memiliki korelasi kuat terhadap rating pengguna, menandakan bahwa **brand, UX, dan faktor eksternal lain** lebih berpengaruh dalam penilaian pengguna.
+
+Sistem yang dibangun dapat ditingkatkan lagi dengan:
+
+* Menambahkan **feedback pengguna (user-based)**,
+* Menyediakan **filter harga atau brand** untuk memperkaya interaktivitas,
+* Menerapkan **hybrid recommendation system** di masa depan untuk menggabungkan keunggulan dari berbagai pendekatan rekomendasi.
+
+1. Content-Based Filtering menghasilkan rekomendasi relevan dengan precision 90%.
+2. Spesifikasi teknis tidak terlalu berkorelasi kuat terhadap rating, mengindikasikan pentingnya faktor eksternal seperti brand dan UX.
+3. Proyek ini dapat diperluas menjadi hybrid recommender system untuk peningkatan akurasi.
+
+## Struktur Laporan
+
+1. Judul & Identitas
+2. Proyek Overview
+3. Business Understanding
+4. Data Understanding
+5. Data Preparation
+6. Exploratory Data Analysis (EDA)
+7. Modelling
+8. Evaluation
+9. Conclusion
+10. Referensi
+
+## Referensi
+
+1. Gyan Prakash Kushwaha (2022). *Mobile Recommendation System Dataset*. Kaggle.
+   [https://www.kaggle.com/datasets/gyanprakashkushwaha/mobile-recommendation-system-dataset](https://www.kaggle.com/datasets/gyanprakashkushwaha/mobile-recommendation-system-dataset)
+2. Géron, A. (2019). *Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow* (2nd ed.). O'Reilly Media.
+3. *scikit-learn documentation*.
+   [https://scikit-learn.org/stable/modules/metrics.html#cosine-similarity](https://scikit-learn.org/stable/modules/metrics.html#cosine-similarity)
+4. *TF-IDF & Cosine Similarity*:
+   [https://en.wikipedia.org/wiki/Tf%E2%80%93idf](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
+   [https://en.wikipedia.org/wiki/Cosine\_similarity](https://en.wikipedia.org/wiki/Cosine_similarity)
+5. Kaggle - Mobile Recommendation System Dataset
+   [https://www.kaggle.com/datasets/gyanprakashkushwaha/mobile-recommendation-system-dataset](https://www.kaggle.com/datasets/gyanprakashkushwaha/mobile-recommendation-system-dataset)
+6. Géron, A. (2019). Hands-On Machine Learning. O'Reilly Media.
+7. scikit-learn: [https://scikit-learn.org](https://scikit-learn.org)
+8. Wikipedia: TF-IDF dan Cosine Similarity
+
